@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "../logo.svg";
-
+import Artists from "./Artists";
 class AppStructure extends Component {
   addArtist = e => {
     console.log(e);
@@ -12,6 +12,7 @@ class AppStructure extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <main>
             <button onClick={this.addArtist}>Add artist</button>
+            <Artists />
           </main>
         </header>
       </div>
