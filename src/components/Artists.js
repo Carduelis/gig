@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
+import { observer } from "mobx-react";
 
+@observer
 class Artists extends Component {
   static propTypes = {
     artists: PropTypes.array
@@ -9,6 +11,7 @@ class Artists extends Component {
     artists: []
   };
   render() {
+    console.log(this.props);
     const { artists } = this.props;
     return (
       <ul>
