@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { PropTypes } from "prop-types";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 
+@inject("store")
 @observer
 class Artists extends Component {
   static propTypes = {
@@ -12,7 +13,9 @@ class Artists extends Component {
   };
   render() {
     console.log(this.props);
-    const { artists } = this.props;
+    const { store } = this.props;
+    const artists = Object.keys(store.artistsStore.artists.toJS());
+    console.log(artists);
     return (
       <ul>
         {artists.map(item => (
