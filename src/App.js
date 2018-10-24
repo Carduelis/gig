@@ -1,26 +1,24 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Provider } from "mobx-react";
+import AppStructure from "./components/AppStructure";
+import { Store } from "./models";
+import { fetch, socket } from "./api";
+import "./App.css";
 
+const store = Store.create(
+  {},
+  {
+    fetch,
+    socket,
+    alert: (...rest) => console.log(...rest)
+  }
+);
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Provider store={store}>
+        <AppStructure />
+      </Provider>
     );
   }
 }
