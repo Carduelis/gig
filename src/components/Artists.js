@@ -2,7 +2,14 @@ import React, { Component } from "react";
 import { PropTypes } from "prop-types";
 import { observer, inject } from "mobx-react";
 
-@inject("store")
+@inject(({ store }) => {
+  const { artistsStore } = store;
+  const { artistsArray, total } = artistsStore;
+  return {
+    artists: artistsArray,
+    total
+  };
+})
 @observer
 class Artists extends Component {
   static propTypes = {
@@ -12,16 +19,21 @@ class Artists extends Component {
     artists: []
   };
   render() {
-    console.log(this.props);
-    const { store } = this.props;
-    const artists = Object.keys(store.artistsStore.artists.toJS());
-    console.log(artists);
+    const { artists, total } = this.props;
+    if (artists.length === 0) {
+      return <div>no artists</div>;
+    }
     return (
-      <ul>
-        {artists.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+      <React.Fragment>
+        <h4>Total Artists: {total}</h4>
+        <ul>
+          {artists.map(item => (
+            <li key={item.id}>
+              {item.name} <sup>{item.id}</sup>
+            </li>
+          ))}
+        </ul>
+      </React.Fragment>
     );
   }
 }

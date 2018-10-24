@@ -4,7 +4,7 @@ export const Artist = types
   .model("Artist", {
     name: types.string,
     id: types.identifier,
-    active: types.boolean
+    active: false
   })
   .views(model => ({
     get socket() {
@@ -12,7 +12,9 @@ export const Artist = types
     }
   }))
   .actions(model => ({
-    afterCreate() {},
+    afterCreate() {
+      console.log('model "Artist" has been added', model);
+    },
     update(payload) {
       model.socket.emit("hello", payload);
     }
